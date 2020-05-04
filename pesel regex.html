@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Podaj Pesel</h1>
+    <input type="text" id="pesel">
+    <progress  max="3" value="0" id="punkty"></progress>
+</body>
+<script type="text/javascript">
+    var start = document.getElementById("pesel")
+    start.addEventListener('keyup', function()
+    {
+        sprawdzpesel(start.value)
+    })
+
+    function sprawdzpesel(pesel)
+    {
+        var wzor = [9, 7, 3, 1, 9, 7, 3, 1, 9, 7];
+        var ostatnia = 0;
+
+        for (var i = 0; i < 10; i++) 
+        {
+            ostatnia += wzor[i] * pesel.charAt(i);
+        }
+
+        ostatnia %= 10;
+
+        var sprawdzostatnia = pesel.charAt(10);
+
+        var punktyX = document.getElementById("punkty")
+        var punkty = 0;
+        if (pesel.match(/^[0-9]{4}[0-3]{1}[0-9]{1}/))
+        {
+            punkty += 1
+        }   
+        if (pesel.match(/[0-9]{4}/))
+        {
+            punkty += 0
+        }
+        if (ostatnia == sprawdzostatnia) {
+            punkty +=1
+        }        
+        if (pesel.length == 11)
+        {
+            punkty += 1
+        }
+        if (pesel.match(/[a-zA-Z]/))
+        {
+            punkty -= 10
+        }
+        switch(punkty)
+        {
+            case 0:
+                punktyX.value = 0;
+                break
+
+            case 1:
+                punktyX.value = 1;
+                break
+
+            case 2:
+                punktyX.value = 2;
+                break
+
+            case 3:
+                punktyX.value = 3;
+                break                       
+        }
+    }
+</script>
+</html>
